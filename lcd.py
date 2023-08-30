@@ -89,10 +89,10 @@ class LCD:
         Turn EN high than, low
         """
         time.sleep(self.delay)
-        GPIO.output(self.en, True)
-        time.sleep(self.delay)
-        GPIO.output(self.en, False)
-        time.sleep(self.delay)
+        for state in [True, False]:
+            time.sleep(self.delay)
+            GPIO.output(self.en, state)
+            time.sleep(self.delay)
 
     def cursor_start(self, start, row, special_char=" "):
         """
@@ -128,7 +128,6 @@ class LCD:
                     + print_string[0]
                 )
                 for i in range(1, 16):
-
                     self.print_line((16 - len(print_string[:i])) * " " + print_string[: i + 1])
                     time.sleep(delay)
                 break
